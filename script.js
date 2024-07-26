@@ -1,4 +1,5 @@
 const myLibrary = [];
+const container = document.querySelector(".container");
 const form = document.querySelector("form");
 const table = document.querySelector("table");
 const modal = document.querySelector(".modal");
@@ -6,6 +7,41 @@ const inputs = [...document.querySelectorAll("input[type='text']")];
 const read = [...document.querySelectorAll("input[id='read']")];
 let book;
 
+// CONSTRUCTOR FUNCTION TO CREATE BOOK
+
+function Book(author, title, pages, read) {
+  this.author = author;
+  this.title = title;
+  this.pages = pages;
+  this.read = read;
+}
+
+Book.prototype.changeStatus = function (e) {
+  if (e.target.matches(".status")) {
+    let readStatus = e.target.parentNode.previousElementSibling;
+    if (readStatus.textContent === "No") {
+      readStatus.textContent = "Yes";
+    } else if (readStatus.textContent === "Yes") readStatus.textContent = "No";
+  }
+};
+
+// HELPER FUNCTIONS
+
+function addBookToLibrary(book) {
+  book.id = new Date().valueOf();
+  myLibrary.push(book);
+  addBookToPage(book);
+}
+
+function addBookToPage(book) {
+  let tr = document.createElement("tr");
+  tr.setAttribute("class", "row");
+  tr.setAttribute("data-id", `${book.id}`);
+  tr.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td>${book.read}</td><td><button class="status">Change Status</button></td><button class="remove">Remove</button>`;
+  table.appendChild(tr);
+}
+
+// EVENT LISTENERS
 document.addEventListener("click", (e) => {
   // Make modal appear and disappear
   if (e.target.matches(".add-book-btn")) {
@@ -30,7 +66,6 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// form
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   // Select all inputs
@@ -55,40 +90,3 @@ form.addEventListener("submit", (e) => {
   // Remove modal once user submits response
   modal.classList.remove("show");
 });
-
-// CONSTRUCTOR FUNCTION TO CREATE BOOK
-
-function Book(author, title, pages, read) {
-  this.author = author;
-  this.title = title;
-  this.pages = pages;
-  this.read = read;
-}
-
-console.log(Book.prototype);
-
-Book.prototype.changeStatus = function (e) {
-  if (e.target.matches(".status")) {
-    let readStatus = e.target.parentNode.previousElementSibling;
-    if (readStatus.textContent === "No") {
-      readStatus.textContent = "Yes";
-    } else if (readStatus.textContent === "Yes") readStatus.textContent = "No";
-  }
-};
-
-// HELPER FUNCTIONS
-
-function addBookToLibrary(book) {
-  book.id = new Date().valueOf();
-  console.log(book);
-  myLibrary.push(book);
-  addBookToPage(book);
-}
-
-function addBookToPage(book) {
-  let tr = document.createElement("tr");
-  tr.setAttribute("class", "row");
-  tr.setAttribute("data-id", `${book.id}`);
-  tr.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td>${book.read}</td><td><button class="status">Change Status</button></td><button class="remove">Remove</button>`;
-  table.appendChild(tr);
-}
