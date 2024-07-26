@@ -1,27 +1,36 @@
-const body = document.querySelector("body");
-console.log(body);
 const myLibrary = [];
+const container = document.querySelector(".container");
+const addBookBtn = document.querySelector(".add-book-btn");
+const modal = document.querySelector(".modal");
+const form = document.querySelector("form");
 
-function Book(author, title) {
+addBookBtn.addEventListener("click", (e) => {
+  modal.style.display = "block";
+});
+
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) modal.style.display = "none";
+});
+
+// CONSTRUCTOR FUNCTION TO CREATE BOOK
+
+function Book(author, title, pages, read) {
   this.author = author;
   this.title = title;
+  this.pages = pages;
+  this.read = false;
 }
 
-function addBookToLibrary(title, author) {
-  let book = new Book(title, author);
-  myLibrary.push(book);
-}
+// HELPER FUNCTIONS
 
-function addBookToPage(arr) {
-  if (!arr) return;
-  arr.forEach((book) => {
-    let result = `${book.title} by ${book.author}`;
-    let div = document.createElement("div");
-    div.append(result);
-    body.appendChild(div);
-  });
-}
+function addBookToLibrary(title, author, pages, read) {}
 
-addBookToLibrary("Lord of the Rings", "J.R. Tolkien");
-addBookToLibrary("Lord of the Rings", "J.R. Tolkien");
-addBookToPage(myLibrary);
+// function addBookToPage(arr) {
+//   if (!arr) return;
+//   let tr = document.createElement("tr");
+//   arr.forEach((book) => {
+//     let tr = document.createElement("tr");
+//     tr.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td>${book.read}</td>`;
+//     table.appendChild(tr);
+//   });
+// }
