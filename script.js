@@ -4,6 +4,7 @@ const table = document.querySelector("table");
 const modal = document.querySelector(".modal");
 const inputs = [...document.querySelectorAll("input[type='text']")];
 const read = [...document.querySelectorAll("input[id='read']")];
+let book;
 
 document.addEventListener("click", (e) => {
   // Make modal appear and disappear
@@ -17,6 +18,16 @@ document.addEventListener("click", (e) => {
     });
   }
   if (e.target.matches(".modal")) modal.classList.remove("show");
+
+  if (e.target.matches(".remove")) {
+    let row = e.target.closest(".row");
+    // let row = e.target.closest(".row").dataset.id;
+    row.remove();
+  }
+
+  if (e.target.matches(".status")) {
+    book.changeStatus();
+  }
 });
 
 // form
@@ -38,7 +49,8 @@ form.addEventListener("submit", (e) => {
     }
   });
   // Use variable to create new object and add it to the library
-  let book = new Book(author, title, pages, choice.value);
+  book = new Book(author, title, pages, choice.value);
+
   addBookToLibrary(book);
   // Remove modal once user submits response
   modal.classList.remove("show");
@@ -53,15 +65,30 @@ function Book(author, title, pages, read) {
   this.read = read;
 }
 
+console.log(Book.prototype);
+
+Book.prototype.changeStatus = function (e) {
+  if (e.target.matches(".status")) {
+    let readStatus = e.target.parentNode.previousElementSibling;
+    if (readStatus.textContent === "No") {
+      readStatus.textContent = "Yes";
+    } else if (readStatus.textContent === "Yes") readStatus.textContent = "No";
+  }
+};
+
 // HELPER FUNCTIONS
 
 function addBookToLibrary(book) {
+  book.id = new Date().valueOf();
+  console.log(book);
   myLibrary.push(book);
   addBookToPage(book);
 }
 
 function addBookToPage(book) {
   let tr = document.createElement("tr");
-  tr.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td>${book.read}</td><button class="remove">Remove</button>`;
+  tr.setAttribute("class", "row");
+  tr.setAttribute("data-id", `${book.id}`);
+  tr.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td>${book.read}</td><td><button class="status">Change Status</button></td><button class="remove">Remove</button>`;
   table.appendChild(tr);
 }
