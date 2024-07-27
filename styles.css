@@ -1,3 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --lightgrey: hsl(0, 0%, 90%);
+  --peach: #ffdfd6;
+  --lightpurple: #e3a5c7;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  height: 100vh;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-book-btn {
+  margin-bottom: 2rem;
+  padding: 0.8rem 1.6rem;
+  border: 2px solid var(--peach);
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: 600;
+  background: hsl(285, 28%, 67%);
+  color: var(--peach);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.add-book-btn:hover {
+  background: hsl(285, 28%, 57%);
+}
+
+table {
+  /* padding: 1rem;
+  border: 2px solid black; */
+  border-spacing: 0;
+}
+
+table th {
+  border: 2px solid #000;
+  border-right: 0;
+  padding: 1.2rem 1.8rem;
+}
+
+table td {
+  border: 2px solid black;
+  border-top: 0;
+  border-right: 0;
+  padding: 0.6rem 1.2rem;
+}
+
+table th:last-child,
+.actions {
+  border-right: 2px solid #000;
+}
+
+table th:nth-child(even),
+table td:nth-child(even) {
+  background-color: var(--peach);
+}
+table th:nth-child(odd),
+table td:nth-child(odd) {
+  background-color: var(--lightpurple);
+}
+
+.actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.actions button {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.65rem 1.2rem;
+}
+
 .modal {
   display: none;
 }

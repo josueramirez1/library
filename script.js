@@ -45,19 +45,20 @@ function addBookToPage(book) {
     td.textContent = value;
     tr.appendChild(td);
   });
-  let statusTd = document.createElement("td");
+  let actionsTd = document.createElement("td");
+
   let statusBtn = document.createElement("button");
   statusBtn.setAttribute("class", "status");
   statusBtn.textContent = "Change Status";
-  statusTd.appendChild(statusBtn);
-  tr.appendChild(statusTd);
 
   let removeBtn = document.createElement("button");
   removeBtn.setAttribute("class", "remove");
   removeBtn.textContent = "Remove";
-  tr.appendChild(removeBtn);
 
-  // tr.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td>${book.read}</td><td><button class="status">Change Status</button></td><button class="remove">Remove</button>`;
+  actionsTd.appendChild(statusBtn);
+  actionsTd.appendChild(removeBtn);
+  actionsTd.setAttribute("class", "actions");
+  tr.appendChild(actionsTd);
 }
 
 // EVENT LISTENERS
