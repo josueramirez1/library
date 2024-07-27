@@ -3,7 +3,9 @@ const container = document.querySelector(".container");
 const form = document.querySelector("form");
 const table = document.querySelector("table");
 const modal = document.querySelector(".modal");
-const inputs = [...document.querySelectorAll("input[type='text']")];
+const textInputs = [...document.querySelectorAll("input[type='text']")];
+const numberInputs = [...document.querySelectorAll("input[type='number']")];
+const inputs = [...textInputs, ...numberInputs];
 const read = [...document.querySelectorAll("input[id='read']")];
 let book;
 
