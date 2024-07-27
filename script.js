@@ -9,9 +9,9 @@ let book;
 
 // CONSTRUCTOR FUNCTION TO CREATE BOOK
 
-function Book(author, title, pages, read) {
-  this.author = author;
+function Book(title, author, pages, read) {
   this.title = title;
+  this.author = author;
   this.pages = pages;
   this.read = read;
 }
@@ -28,7 +28,7 @@ Book.prototype.changeStatus = function (e) {
 // HELPER FUNCTIONS
 
 function addBookToLibrary(book) {
-  book.id = new Date().valueOf();
+  // book.id = new Date().valueOf();
   myLibrary.push(book);
   addBookToPage(book);
 }
@@ -36,9 +36,28 @@ function addBookToLibrary(book) {
 function addBookToPage(book) {
   let tr = document.createElement("tr");
   tr.setAttribute("class", "row");
-  tr.setAttribute("data-id", `${book.id}`);
-  tr.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td>${book.read}</td><td><button class="status">Change Status</button></td><button class="remove">Remove</button>`;
+  // tr.setAttribute("data-id", `${book.id}`);
   table.appendChild(tr);
+
+  let values = Object.values(book);
+  values.forEach((value) => {
+    let td = document.createElement("td");
+    td.textContent = value;
+    tr.appendChild(td);
+  });
+  let statusTd = document.createElement("td");
+  let statusBtn = document.createElement("button");
+  statusBtn.setAttribute("class", "status");
+  statusBtn.textContent = "Change Status";
+  statusTd.appendChild(statusBtn);
+  tr.appendChild(statusTd);
+
+  let removeBtn = document.createElement("button");
+  removeBtn.setAttribute("class", "remove");
+  removeBtn.textContent = "Remove";
+  tr.appendChild(removeBtn);
+
+  // tr.innerHTML = `<td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td>${book.read}</td><td><button class="status">Change Status</button></td><button class="remove">Remove</button>`;
 }
 
 // EVENT LISTENERS
@@ -62,7 +81,7 @@ document.addEventListener("click", (e) => {
   }
 
   if (e.target.matches(".status")) {
-    book.changeStatus();
+    book.changeStatus(e);
   }
 });
 
@@ -84,7 +103,7 @@ form.addEventListener("submit", (e) => {
     }
   });
   // Use variable to create new object and add it to the library
-  book = new Book(author, title, pages, choice.value);
+  book = new Book(title, author, pages, choice.value);
 
   addBookToLibrary(book);
   // Remove modal once user submits response
