@@ -2,8 +2,11 @@
 
 :root {
   --lightgrey: hsl(0, 0%, 90%);
-  --peach: #ffdfd6;
-  --lightpurple: #e3a5c7;
+  --darkblue: hsl(216, 97%, 15%);
+  --turquoise: hsl(186, 97%, 29%);
+  --slushyorange: #f6dcac;
+  --orange: #feae6f;
+  --whitetext: #fff;
 }
 
 * {
@@ -17,9 +20,9 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  position: relative;
+
   height: 100vh;
-  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
@@ -30,52 +33,55 @@ body {
 .add-book-btn {
   margin-bottom: 2rem;
   padding: 0.8rem 1.6rem;
-  border: 2px solid var(--peach);
+  border: 2px solid var(--darkblue);
   border-radius: 5px;
   cursor: pointer;
   font-family: inherit;
   font-size: 1.6rem;
   font-weight: 600;
-  background: hsl(285, 28%, 67%);
-  color: var(--peach);
+  background: var(--turquoise);
+  color: var(--whitetext);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .add-book-btn:hover {
-  background: hsl(285, 28%, 57%);
+  background: var(--darkblue);
 }
 
 table {
-  /* padding: 1rem;
-  border: 2px solid black; */
   border-spacing: 0;
+  color: var(--turquoise);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: 0 auto;
+  width: 600px;
 }
 
 table th {
-  border: 2px solid #000;
+  border: 2px solid hsl(216, 97%, 15%);
   border-right: 0;
   padding: 1.2rem 1.8rem;
 }
 
 table td {
-  border: 2px solid black;
+  border: 2px solid hsl(216, 97%, 15%);
   border-top: 0;
   border-right: 0;
   padding: 0.6rem 1.2rem;
+  text-align: center;
 }
 
 table th:last-child,
 .actions {
-  border-right: 2px solid #000;
+  border-right: 2px solid hsl(216, 97%, 15%);
 }
 
 table th:nth-child(even),
 table td:nth-child(even) {
-  background-color: var(--peach);
+  background-color: var(--orange);
 }
 table th:nth-child(odd),
 table td:nth-child(odd) {
-  background-color: var(--lightpurple);
+  background-color: var(--slushyorange);
 }
 
 .actions {
@@ -86,7 +92,12 @@ table td:nth-child(odd) {
 .actions button {
   font-family: inherit;
   font-size: inherit;
-  padding: 0.65rem 1.2rem;
+  color: var(--whitetext);
+  padding: 0.75rem 1.2rem;
+  background-color: var(--turquoise);
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .modal {
@@ -96,26 +107,79 @@ table td:nth-child(odd) {
 .modal.show {
   display: block;
   position: fixed;
-  top: 0;
-  left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: 25% auto;
-  width: 300px;
-  height: 300px;
-  z-index: 2;
-  background-color: #fff;
-  padding: 7px;
+  background: var(--slushyorange);
+  color: var(--turquoise);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 320px;
   border-radius: 5px;
-  border: 1px solid black;
+  border: 2px solid var(--darkblue);
 
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.form {
+  width: 70%;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.4rem;
+}
+
+.form-row:nth-child(4) {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0.6rem;
+}
+
+.form-row:last-child {
+  flex-direction: row;
+  justify-content: center;
+}
+
+.form-row input {
+  padding: 0.2rem 0.4rem;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.form-row input[type="radio"] {
+  height: 1.2rem;
+  width: 1.2rem;
+  cursor: pointer;
+}
+
+.form-row div {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.add {
+  width: 100%;
+  padding: 0.4rem 1rem;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  background-color: var(--turquoise);
+  border: none;
+  color: #fff;
+}
+
+.add:hover {
+  background: var(--darkblue);
 }
