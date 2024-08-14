@@ -1,7 +1,5 @@
-const myLibrary = [];
-const container = document.querySelector(".container");
 const form = document.querySelector("form");
-const table = document.querySelector("table");
+// const table = document.querySelector("table");
 const modal = document.querySelector(".modal");
 const textInputs = [...document.querySelectorAll("input[type='text']")];
 const numberInputs = [...document.querySelectorAll("input[type='number']")];
@@ -10,32 +8,38 @@ const read = [...document.querySelectorAll("input[id='read']")];
 let book;
 
 // CONSTRUCTOR FUNCTION TO CREATE BOOK
-
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
-
-Book.prototype.changeStatus = function (e) {
-  if (e.target.matches(".status")) {
-    let readStatus = e.target.parentNode.previousElementSibling;
-    if (readStatus.textContent === "No") {
-      readStatus.textContent = "Yes";
-    } else if (readStatus.textContent === "Yes") readStatus.textContent = "No";
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
   }
-};
+
+  changeStatus(e) {
+    if (e.target.matches(".status")) {
+      let readStatus = e.target.parentNode.previousElementSibling;
+      if (readStatus.textContent === "No") {
+        readStatus.textContent = "Yes";
+      } else if (readStatus.textContent === "Yes")
+        readStatus.textContent = "No";
+    }
+  }
+}
 
 // HELPER FUNCTIONS
 
 function addBookToLibrary(book) {
+  const myLibrary = [];
+  const getMyLibrary = () => myLibrary;
+  console.log(getMyLibrary);
   // book.id = new Date().valueOf();
-  myLibrary.push(book);
+  getMyLibrary().push(book);
   addBookToPage(book);
 }
 
 function addBookToPage(book) {
+  const table = document.querySelector("table");
   let tr = document.createElement("tr");
   tr.setAttribute("class", "row");
   // tr.setAttribute("data-id", `${book.id}`);
