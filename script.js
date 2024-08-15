@@ -56,7 +56,7 @@ function addBookToPage(book) {
   tr.appendChild(actionsTd);
 }
 
-// Function to begin event listeners
+// Function to initiate event listeners
 
 function startEvents() {
   const form = document.querySelector("form");
@@ -117,5 +117,5 @@ function startEvents() {
     modal.classList.remove("show");
   });
 }
-
+// initiate event listener
 const addBooks = startEvents();
