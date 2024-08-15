@@ -1,5 +1,4 @@
 const form = document.querySelector("form");
-// const table = document.querySelector("table");
 const modal = document.querySelector(".modal");
 const textInputs = [...document.querySelectorAll("input[type='text']")];
 const numberInputs = [...document.querySelectorAll("input[type='number']")];
@@ -32,8 +31,6 @@ class Book {
 function addBookToLibrary(book) {
   const myLibrary = [];
   const getMyLibrary = () => myLibrary;
-  console.log(getMyLibrary);
-  // book.id = new Date().valueOf();
   getMyLibrary().push(book);
   addBookToPage(book);
 }
