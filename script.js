@@ -1,11 +1,15 @@
 const myLibrary = [];
 const container = document.querySelector(".container");
+const bookContainer = document.querySelector(".books");
+const addBtn = document.querySelector(".add-btn");
+const form = document.querySelector(".form");
+const submitFormBtn = document.querySelector(".to-list-btn");
 
 function Book(title, author, pages, isRead = false) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.isRead = isRead ? "completed" : "not read yet";
+  this.isRead = isRead ? "Yes!" : "No";
   this.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.isRead}.`;
   };
@@ -36,18 +40,46 @@ function displayBooks() {
   row.append(thTitle, thAuthor, thPages, thIsRead);
 
   table.classList.add("table");
-  console.log(container);
 
   myLibrary.forEach((book) => {
-    console.log(book);
-    const row = document.createElement("tr");
-    const trTitle = document.createElement("td");
-    trTitle.textContent = book.title;
-    row.appendChild(trTitle);
-    table.appendChild(row);
+    const rowD = document.createElement("tr");
+    const tdTitle = document.createElement("td");
+    const tdAuthor = document.createElement("td");
+    const tdPages = document.createElement("td");
+    const tdIsRead = document.createElement("td");
+
+    tdTitle.textContent = book.title;
+    tdAuthor.textContent = book.author;
+    tdPages.textContent = book.pages;
+    tdIsRead.textContent = book.isRead;
+
+    rowD.append(tdTitle, tdAuthor, tdPages, tdIsRead);
+    table.appendChild(rowD);
   });
 
-  container.appendChild(table);
+  bookContainer.appendChild(table);
 }
 
 displayBooks();
+
+addBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  form.classList.add("active");
+  container.style.backgroundColor = "hsl(177, 70%, 21%)";
+
+  document.addEventListener("click", (e) => {
+    if (e.target.matches(".container")) {
+      form.classList.remove("active");
+      container.style.backgroundColor = "hsl(177, 70%, 41%)";
+    }
+  });
+});
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+  console.log(formData);
+  const title = formData.get("title");
+  console.log(title);
+});
