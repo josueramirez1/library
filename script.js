@@ -28,23 +28,20 @@ function displayTable() {
   const thAuthor = document.createElement("th");
   const thPages = document.createElement("th");
   const thIsRead = document.createElement("th");
+  const thActions = document.createElement("th");
 
   thTitle.textContent = "Title";
   thAuthor.textContent = "Author";
   thPages.textContent = "Pages";
   thIsRead.textContent = "Completed?";
+  thActions.textContent = "Actions";
 
   table.appendChild(row);
-  row.append(thTitle, thAuthor, thPages, thIsRead);
+  row.append(thTitle, thAuthor, thPages, thIsRead, thActions);
 
   table.classList.add("table");
   bookContainer.appendChild(table);
 }
-
-displayTable();
-
-// addBookToLibrary("Making Sense of God", "Timothy Keller", 500, "yes");
-// addBookToLibrary("Reading the Bible for a Change", "Ray Lubeck", 300, "no");
 
 function displayBooks() {
   const currentTable = document.querySelector(".table");
@@ -58,32 +55,47 @@ function displayBooks() {
     const tdAuthor = document.createElement("td");
     const tdPages = document.createElement("td");
     const tdIsRead = document.createElement("td");
+    const tdActions = document.createElement("td");
+    const tdActionsDelete = document.createElement("button");
+    const tdActionsChange = document.createElement("button");
+    tdActions.append(tdActionsChange, tdActionsDelete);
 
     tdTitle.textContent = book.title;
     tdAuthor.textContent = book.author;
     tdPages.textContent = book.pages;
     tdIsRead.textContent = book.isRead;
+    tdActionsChange.textContent = "Change Status";
+    tdActionsDelete.textContent = "Delete";
+    tdActionsChange.classList.add("change");
+    tdActionsDelete.classList.add("delete");
 
-    rowD.append(tdTitle, tdAuthor, tdPages, tdIsRead);
+    rowD.append(tdTitle, tdAuthor, tdPages, tdIsRead, tdActions);
     newTable.appendChild(rowD);
   });
 }
+
+document.addEventListener("click", (e) => {
+  if (e.target.matches(".container")) {
+    form.classList.remove("active");
+    container.style.backgroundColor = "hsl(177, 70%, 41%)";
+  }
+
+  if (e.target.matches(".delete")) {
+    console.log(e);
+    e.target.parentElement.parentElement.remove();
+  }
+});
 
 addBtn.addEventListener("click", (e) => {
   e.preventDefault();
   form.classList.add("active");
   container.style.backgroundColor = "hsl(177, 70%, 21%)";
-
-  document.addEventListener("click", (e) => {
-    if (e.target.matches(".container")) {
-      form.classList.remove("active");
-      container.style.backgroundColor = "hsl(177, 70%, 41%)";
-    }
-  });
 });
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  const inputArr = [...document.querySelectorAll("input[type='text']")];
 
   const formData = new FormData(form);
   const title = formData.get("title");
@@ -91,7 +103,15 @@ form.addEventListener("submit", (e) => {
   const pages = parseInt(formData.get("pages"));
   const completed = formData.get("completed");
 
+  //add to array
   addBookToLibrary(title, author, pages, completed);
-
+  //display to ui
   displayBooks();
+  //clear input
+  inputArr.forEach((input) => (input.value = ""));
 });
+
+displayTable();
+
+// addBookToLibrary("Making Sense of God", "Timothy Keller", 500, "yes");
+// addBookToLibrary("Reading the Bible for a Change", "Ray Lubeck", 300, "no");
