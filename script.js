@@ -42,7 +42,6 @@ function displayTable() {
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
-  console.log(arguments);
   if (title === "" || author === "" || pages === "") return;
   myLibrary.push(new Book(title, author, pages, isRead));
 }
@@ -118,16 +117,6 @@ function changeStatus() {
   });
 }
 
-document.addEventListener("click", (e) => {
-  if (e.target.matches(".container")) {
-    form.classList.remove("active");
-    container.style.backgroundColor = "hsl(177, 70%, 41%)";
-  }
-});
-
-addBtn.addEventListener("click", (e) => modal.showModal());
-closeBtn.addEventListener("click", () => modal.close());
-
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -157,5 +146,3 @@ displayTable();
 displayBooks();
 deleteRow();
 changeStatus();
-
-console.log(myLibrary);

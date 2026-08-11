@@ -10,9 +10,8 @@
   <body>
     <div class="container">
       <div class="books"></div>
-      <!-- <button class="add-btn">Add Book</button> -->
-      <button class="add-btn">Add Book</button>
-      <dialog id="dialog" popover>
+      <button popovertarget="my-dialog" class="add-btn">Add Book</button>
+      <dialog id="my-dialog" popover>
         <form>
           <p>
             <label for="title">Title</label>
@@ -57,15 +56,15 @@
             <label for="completed-no">No</label>
           </p>
           <div>
+            <button class="to-list-btn add" type="submit">Add To List</button>
             <button
-              class="to-list-btn add"
-              type="submit"
-              formmethod="dialog"
-              formnovalidate
+              class="to-list-btn close"
+              type="button"
+              popovertarget="my-dialog"
+              popovertargetaction="hide"
             >
-              Add To List
+              Close
             </button>
-            <button class="to-list-btn close" type="button">Close</button>
             <button class="to-list-btn" type="reset">Reset</button>
           </div>
         </form>
