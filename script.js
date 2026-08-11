@@ -16,11 +16,6 @@ function Book(title, author, pages, isRead = false) {
   };
 }
 
-function addBookToLibrary(title, author, pages, isRead) {
-  if (arguments.length === 0) return;
-  myLibrary.push(new Book(title, author, pages, isRead));
-}
-
 function displayTable() {
   const table = document.createElement("table");
   const row = document.createElement("tr");
@@ -43,9 +38,18 @@ function displayTable() {
   bookContainer.appendChild(table);
 }
 
-function displayBooks() {
+function addBookToLibrary(title, author, pages, isRead) {
+  if (arguments.length === 0) return;
+  myLibrary.push(new Book(title, author, pages, isRead));
+}
+
+function deleteTable() {
   const currentTable = document.querySelector(".table");
   currentTable.remove();
+}
+
+function displayBooks() {
+  deleteTable();
   displayTable();
   const newTable = document.querySelector(".table");
 
@@ -69,8 +73,24 @@ function displayBooks() {
     tdActionsChange.classList.add("change");
     tdActionsDelete.classList.add("delete");
 
+    rowD.classList.add("row");
+
     rowD.append(tdTitle, tdAuthor, tdPages, tdIsRead, tdActions);
     newTable.appendChild(rowD);
+  });
+}
+
+function deleteRow() {
+  const deleteBtns = [...document.querySelectorAll(".delete")];
+
+  console.log(deleteBtns);
+  console.log(myLibrary);
+
+  deleteBtns.forEach((deleteBtn) => {
+    deleteBtn.addEventListener("click", (e) => {
+      const targetRow = e.target.closest(".row");
+      targetRow.remove();
+    });
   });
 }
 
@@ -78,11 +98,6 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".container")) {
     form.classList.remove("active");
     container.style.backgroundColor = "hsl(177, 70%, 41%)";
-  }
-
-  if (e.target.matches(".delete")) {
-    console.log(e);
-    e.target.parentElement.parentElement.remove();
   }
 });
 
@@ -109,6 +124,9 @@ form.addEventListener("submit", (e) => {
   displayBooks();
   //clear input
   inputArr.forEach((input) => (input.value = ""));
+
+  //delete button
+  deleteRow();
 });
 
 displayTable();
