@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 const container = document.querySelector(".container");
 const bookContainer = document.querySelector(".books");
 const addBtn = document.querySelector(".add-btn");
@@ -83,13 +83,33 @@ function displayBooks() {
 function deleteRow() {
   const deleteBtns = [...document.querySelectorAll(".delete")];
 
-  console.log(deleteBtns);
-  console.log(myLibrary);
-
-  deleteBtns.forEach((deleteBtn) => {
+  deleteBtns.forEach((deleteBtn, index) => {
     deleteBtn.addEventListener("click", (e) => {
       const targetRow = e.target.closest(".row");
+      myLibrary.forEach((book, i) => {
+        if (i === index) {
+          myLibrary.splice(i, 1);
+        }
+      });
       targetRow.remove();
+    });
+  });
+}
+
+function changeStatus() {
+  const changeBtns = [...document.querySelectorAll(".change")];
+
+  changeBtns.forEach((changeBtn, index) => {
+    changeBtn.addEventListener("click", (e) => {
+      let previousSibling = changeBtn.closest("td").previousElementSibling;
+      console.log(previousSibling.textContent);
+      myLibrary.forEach((book, i) => {
+        if (i === index) {
+          previousSibling.textContent =
+            previousSibling.textContent === "Yes!" ? "No" : "Yes!";
+          book.isRead = book.isRead === "Yes!" ? "No" : "Yes!";
+        }
+      });
     });
   });
 }
@@ -129,7 +149,10 @@ form.addEventListener("submit", (e) => {
   deleteRow();
 });
 
-displayTable();
+addBookToLibrary("Making Sense of God", "Timothy Keller", 500, "yes");
+addBookToLibrary("Reading the Bible for a Change", "Ray Lubeck", 300, "no");
 
-// addBookToLibrary("Making Sense of God", "Timothy Keller", 500, "yes");
-// addBookToLibrary("Reading the Bible for a Change", "Ray Lubeck", 300, "no");
+displayTable();
+displayBooks();
+deleteRow();
+changeStatus();
