@@ -38,9 +38,12 @@ th,
 td {
   border: 1px solid black;
   padding: 5px;
+  border-radius: 5px;
 }
 
-.add-btn {
+.add-btn,
+.change,
+.delete {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -48,6 +51,15 @@ td {
   font-size: 18px;
   background-color: hsl(34, 78%, 91%);
   cursor: pointer;
+}
+
+.change,
+.delete {
+  padding: 6px 12px;
+}
+
+.change {
+  margin-inline-end: 10px;
 }
 
 .add-btn:hover {
