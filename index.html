@@ -10,29 +10,48 @@
   <body>
     <div class="container">
       <div class="books"></div>
+      <!-- <button class="add-btn">Add Book</button> -->
       <button class="add-btn">Add Book</button>
+      <dialog id="dialog" popover>
+        <form>
+          <p>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" />
+          </p>
+          <p>
+            <label for="author">Author</label>
+            <input type="text" id="author" name="author" />
+          </p>
+          <p>
+            <label for="pages">Pages</label>
+            <input type="text" id="pages" name="pages" />
+          </p>
+          <p>
+            <span>Completed?</span>
+            <input
+              type="radio"
+              id="completed-yes"
+              value="yes"
+              name="completed"
+            />
+            <label for="completed-yes">Yes</label>
+            <input type="radio" id="completed-no" value="no" name="completed" />
+            <label for="completed-no">No</label>
+          </p>
+          <div>
+            <button
+              class="to-list-btn add"
+              type="submit"
+              formmethod="dialog"
+              formnovalidate
+            >
+              Add To List
+            </button>
+            <button class="to-list-btn close" type="button">Close</button>
+            <button class="to-list-btn" type="reset">Reset</button>
+          </div>
+        </form>
+      </dialog>
     </div>
-    <form class="form">
-      <p>
-        <label for="title">Title</label>
-        <input type="text" id="title" name="title" />
-      </p>
-      <p>
-        <label for="author">Author</label>
-        <input type="text" id="author" name="author" />
-      </p>
-      <p>
-        <label for="pages">Pages</label>
-        <input type="text" id="pages" name="pages" />
-      </p>
-      <p>
-        <span>Completed?</span>
-        <input type="radio" id="completed-yes" value="yes" name="completed" />
-        <label for="completed-yes">Yes</label>
-        <input type="radio" id="completed-no" value="no" name="completed" />
-        <label for="completed-no">No</label>
-      </p>
-      <button class="to-list-btn" type="submit">Add To List</button>
-    </form>
   </body>
 </html>

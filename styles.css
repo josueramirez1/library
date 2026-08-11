@@ -67,21 +67,19 @@ td {
   cursor: pointer;
 }
 
-.form {
-  display: none;
+dialog {
+  height: 380px;
+  width: 380px;
+  background-color: lightgray;
+  border-radius: 11px;
+  padding: 20px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 350px;
-  width: 350px;
-  z-index: 1;
-  background-color: lightgray;
-  border-radius: 11px;
-  padding: 20px;
 }
 
-.active {
+form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -89,16 +87,16 @@ td {
   gap: 10px;
 }
 
-.form p {
+form p {
   width: 100%;
 }
 
-.form input[type="text"],
-.form label {
+form input[type="text"],
+form label {
   width: 100%;
 }
 
-.form input[type="text"] {
+form input[type="text"] {
   border-radius: 2px;
   border: none;
   padding: 5px;
@@ -106,10 +104,11 @@ td {
 }
 
 .to-list-btn {
-  text-align: center;
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
   font-family: inherit;
   font-size: 16px;
+  background-color: hsl(34, 78%, 91%);
+  cursor: pointer;
 }

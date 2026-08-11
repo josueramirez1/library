@@ -2,8 +2,10 @@ let myLibrary = [];
 const container = document.querySelector(".container");
 const bookContainer = document.querySelector(".books");
 const addBtn = document.querySelector(".add-btn");
-const form = document.querySelector(".form");
+const closeBtn = document.querySelector(".close");
+const form = document.querySelector("form");
 const submitFormBtn = document.querySelector(".to-list-btn");
+const modal = document.querySelector("dialog");
 
 // Book constructor
 function Book(title, author, pages, isRead = false) {
@@ -11,6 +13,7 @@ function Book(title, author, pages, isRead = false) {
   this.author = author;
   this.pages = pages;
   this.isRead = isRead === "yes" ? "Yes!" : "No";
+  this.id = crypto.randomUUID();
   this.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.isRead}.`;
   };
@@ -121,16 +124,15 @@ document.addEventListener("click", (e) => {
   }
 });
 
-addBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  form.classList.add("active");
-  container.style.backgroundColor = "hsl(177, 70%, 21%)";
-});
+addBtn.addEventListener("click", (e) => modal.showModal());
+closeBtn.addEventListener("click", () => modal.close());
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const inputArr = [...document.querySelectorAll("input[type='text']")];
+
+  console.log(inputArr);
 
   const formData = new FormData(form);
   const title = formData.get("title");
@@ -156,3 +158,5 @@ displayTable();
 displayBooks();
 deleteRow();
 changeStatus();
+
+console.log(myLibrary);
