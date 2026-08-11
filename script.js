@@ -42,7 +42,8 @@ function displayTable() {
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
-  if (arguments.length === 0) return;
+  console.log(arguments);
+  if (title === "" || author === "" || pages === "") return;
   myLibrary.push(new Book(title, author, pages, isRead));
 }
 
@@ -132,12 +133,11 @@ form.addEventListener("submit", (e) => {
 
   const inputArr = [...document.querySelectorAll("input[type='text']")];
 
-  console.log(inputArr);
-
   const formData = new FormData(form);
+
   const title = formData.get("title");
   const author = formData.get("author");
-  const pages = parseInt(formData.get("pages"));
+  const pages = formData.get("pages");
   const completed = formData.get("completed");
 
   //add to array
@@ -146,7 +146,6 @@ form.addEventListener("submit", (e) => {
   displayBooks();
   //clear input
   inputArr.forEach((input) => (input.value = ""));
-
   //delete button
   deleteRow();
 });
