@@ -8,14 +8,14 @@ const submitFormBtn = document.querySelector(".to-list-btn");
 const modal = document.querySelector("dialog");
 
 // Book constructor
-function Book(title, author, pages, isRead = false) {
+function Book(title, author, pages, isRead = "No") {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.isRead = isRead === "yes" ? "Yes!" : "No";
+  this.isRead = isRead;
   this.id = crypto.randomUUID();
-  this.info = function () {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.isRead}.`;
+  this.change = function () {
+    this.isRead = this.isRead === "Yes!" ? "No" : "Yes!";
   };
 }
 
@@ -77,6 +77,7 @@ function displayBooks() {
     tdActionsDelete.classList.add("delete");
 
     rowD.classList.add("row");
+    rowD.dataset.id = book.id;
 
     rowD.append(tdTitle, tdAuthor, tdPages, tdIsRead, tdActions);
     newTable.appendChild(rowD);
@@ -84,35 +85,34 @@ function displayBooks() {
 }
 
 function deleteRow() {
-  const deleteBtns = [...document.querySelectorAll(".delete")];
+  let deleteBtns = [...document.querySelectorAll(".delete")];
 
-  deleteBtns.forEach((deleteBtn, index) => {
+  deleteBtns.forEach((deleteBtn, i) => {
     deleteBtn.addEventListener("click", (e) => {
       const targetRow = e.target.closest(".row");
-      myLibrary.forEach((book, i) => {
-        if (i === index) {
-          myLibrary.splice(i, 1);
-        }
-      });
+      const idToDelete = targetRow.dataset.id;
+
       targetRow.remove();
+      myLibrary = myLibrary.filter((book) => book.id !== idToDelete);
     });
   });
 }
 
 function changeStatus() {
-  const changeBtns = [...document.querySelectorAll(".change")];
+  let changeBtns = [...document.querySelectorAll(".change")];
 
   changeBtns.forEach((changeBtn, index) => {
     changeBtn.addEventListener("click", (e) => {
-      let previousSibling = changeBtn.closest("td").previousElementSibling;
-      console.log(previousSibling.textContent);
-      myLibrary.forEach((book, i) => {
-        if (i === index) {
-          previousSibling.textContent =
-            previousSibling.textContent === "Yes!" ? "No" : "Yes!";
-          book.isRead = book.isRead === "Yes!" ? "No" : "Yes!";
+      const targetRow = e.target.closest(".row");
+      const idToChange = targetRow.dataset.id;
+      let toggle = changeBtn.parentElement.previousElementSibling;
+      myLibrary.forEach((book) => {
+        if (book.id === idToChange) {
+          book.change();
+          toggle.textContent = book.isRead;
         }
       });
+      console.log(myLibrary);
     });
   });
 }
@@ -137,10 +137,12 @@ form.addEventListener("submit", (e) => {
   inputArr.forEach((input) => (input.value = ""));
   //delete button
   deleteRow();
+  //change status button
+  changeStatus();
 });
 
-addBookToLibrary("Making Sense of God", "Timothy Keller", 500, "yes");
-addBookToLibrary("Reading the Bible for a Change", "Ray Lubeck", 300, "no");
+addBookToLibrary("Making Sense of God", "Timothy Keller", 500, "Yes!");
+addBookToLibrary("Reading the Bible for a Change", "Ray Lubeck", 300, "No");
 
 displayTable();
 displayBooks();
