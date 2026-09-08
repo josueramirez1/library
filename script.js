@@ -8,15 +8,29 @@ const submitFormBtn = document.querySelector(".to-list-btn");
 const modal = document.querySelector("dialog");
 
 // Book constructor
-function Book(title, author, pages, isRead = "No") {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
-  this.id = crypto.randomUUID();
-  this.change = function () {
+// function Book(title, author, pages, isRead = "No") {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.isRead = isRead;
+//   this.id = crypto.randomUUID();
+//   this.change = function () {
+//     this.isRead = this.isRead === "Yes!" ? "No" : "Yes!";
+//   };
+// }
+
+class Book {
+  constructor(title, author, pages, isRead = "No") {
+    ((this.title = title),
+      (this.author = author),
+      (this.pages = pages),
+      (this.isRead = isRead),
+      (this.id = crypto.randomUUID()));
+  }
+
+  change() {
     this.isRead = this.isRead === "Yes!" ? "No" : "Yes!";
-  };
+  }
 }
 
 function displayTable() {
@@ -112,7 +126,6 @@ function changeStatus() {
           toggle.textContent = book.isRead;
         }
       });
-      console.log(myLibrary);
     });
   });
 }
