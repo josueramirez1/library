@@ -18,10 +18,14 @@ class Book {
       (this.isRead = isRead),
       (this.id = crypto.randomUUID()));
   }
+
+  change() {
+    this.isRead = this.isRead === "Yes!" ? "No" : "Yes!";
+  }
 }
 
 class displayLibray {
-  myLibrary = [];
+  #myLibrary = [];
   container = document.querySelector(".container");
   bookContainer = document.querySelector(".books");
   addBtn = document.querySelector(".add-btn");
@@ -29,10 +33,6 @@ class displayLibray {
   form = document.querySelector("form");
   submitFormBtn = document.querySelector(".to-list-btn");
   modal = document.querySelector("dialog");
-
-  change() {
-    this.isRead = this.isRead === "Yes!" ? "No" : "Yes!";
-  }
 
   displayTable() {
     const table = document.createElement("table");
@@ -58,8 +58,7 @@ class displayLibray {
 
   addBookToLibrary(title, author, pages, isRead) {
     if (title === "" || author === "" || pages === "") return;
-    this.myLibrary.push(new Book(title, author, pages, isRead));
-    console.log(this.myLibrary);
+    this.#myLibrary.push(new Book(title, author, pages, isRead));
   }
 
   deleteTable() {
@@ -72,7 +71,7 @@ class displayLibray {
     this.displayTable();
     const newTable = document.querySelector(".table");
 
-    this.myLibrary.forEach((book) => {
+    this.#myLibrary.forEach((book) => {
       const rowD = document.createElement("tr");
       const tdTitle = document.createElement("td");
       const tdAuthor = document.createElement("td");
@@ -109,7 +108,7 @@ class displayLibray {
         const idToDelete = targetRow.dataset.id;
 
         targetRow.remove();
-        this.myLibrary = this.myLibrary.filter(
+        this.#myLibrary = this.#myLibrary.filter(
           (book) => book.id !== idToDelete,
         );
       });
@@ -123,7 +122,7 @@ class displayLibray {
         const targetRow = e.target.closest(".row");
         const idToChange = targetRow.dataset.id;
         let toggle = changeBtn.parentElement.previousElementSibling;
-        this.myLibrary.forEach((book) => {
+        this.#myLibrary.forEach((book) => {
           if (book.id === idToChange) {
             book.change();
             toggle.textContent = book.isRead;
